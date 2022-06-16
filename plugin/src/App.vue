@@ -1,5 +1,6 @@
 <template>
 
+  <!-- Message -->
   <button @click="
   Message.success({
     type: 'error',
@@ -24,15 +25,49 @@
     type: 'message',
     message: 'message'
   })">message</button>
-
+  -----------------------------------------------------
+  <!-- MessageBox -->
+  <button @click="showMessageBox">MessageBox</button>
+  <button @click="showMessageBoxConfirm">MessageBoxConfirm</button>
+  <button @click="showMessagePrompt">MessageBoxPrompt</button>
 
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import Message from './components/Message'
+import { Message } from './MYUI'
+import { MessageBox } from './MYUI'
+
+const showMessageBox = () => {
+  MessageBox({
+    title: 'MessageBox',
+    confirmBtnText: '确定',
+    content: '这是MessageBox',
+  })
+}
 
 
+const showMessageBoxConfirm = () => {
+  MessageBox.confirm({
+    title: 'MessageBoxConfirm',
+    showCancelBtn: true,
+    cancelBtnText: '取消',
+    content: '这是MessageBoxConfirm',
+  })
+}
+
+const showMessagePrompt = () => {
+  MessageBox.prompt({
+    title: 'MessageBoxPrompt',
+    showCancelBtn: true,
+    cancelBtnText: '取消',
+    confirmBtnText: '确定',
+    content: '这是MessageBoxPrompt',
+  }).then((res) => {
+    console.log(res, '成功');
+  }).catch(() => {
+    console.log('失败');
+  })
+}
 
 
 </script>
