@@ -39,7 +39,7 @@ import { MessageBox } from './MYUI'
 
 const showMessageBox = () => {
   MessageBox({
-    title: 'MessageBox',
+    title: '提示',
     confirmBtnText: '确定',
     content: '这是MessageBox',
   })
@@ -48,7 +48,7 @@ const showMessageBox = () => {
 
 const showMessageBoxConfirm = () => {
   MessageBox.confirm({
-    title: 'MessageBoxConfirm',
+    title: '提示',
     showCancelBtn: true,
     cancelBtnText: '取消',
     content: '这是MessageBoxConfirm',
@@ -57,7 +57,7 @@ const showMessageBoxConfirm = () => {
 
 const showMessagePrompt = () => {
   MessageBox.prompt({
-    title: 'MessageBoxPrompt',
+    title: '提示',
     showCancelBtn: true,
     cancelBtnText: '取消',
     confirmBtnText: '确定',

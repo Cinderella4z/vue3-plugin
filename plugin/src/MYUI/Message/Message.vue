@@ -1,5 +1,9 @@
 <template>
-  <div :class="style">{{ props.message }}</div>
+
+  <transition>
+    <div :class="style" v-if="show">{{ props.message }}</div>
+  </transition>
+
 </template>
 
 <script setup>
@@ -7,6 +11,22 @@ import { ref, computed } from 'vue'
 
 const props = defineProps({ message: String, type: String })
 const style = computed(() => ['messageApp', props.type])
+
+const show = ref(false)
+const setShow = (bool) => {
+  show.value = bool
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('')
+    }, 500);
+  })
+}
+
+defineExpose({
+  setShow,
+})
+
 
 </script>
 
@@ -39,5 +59,23 @@ const style = computed(() => ['messageApp', props.type])
 
 .message {
   background-color: #909399;
+}
+
+.v-enter-active {
+  transition: all .5s;
+
+}
+
+.v-leave-active {
+  transition: all .5s;
+
+}
+
+
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 </style>

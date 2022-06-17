@@ -5,7 +5,6 @@ import types from './types'
 
 const Message = (option) => {
   const app = createApp(MessageComponent, option)
-
   show(app, option.duration)
 }
 
@@ -19,14 +18,17 @@ Object.values(types).forEach(t => {
 
 const show = (app, duration) => {
   const fragment = document.createDocumentFragment();
-  app.mount(fragment)
+  const vm = app.mount(fragment)
   document.body.appendChild(fragment)
-  unshow(app, duration)
+  vm.setShow(true)
+  unshow(app, vm, duration)
 }
 
-const unshow = (app, duration) => {
+const unshow = (app, vm, duration) => {
   setTimeout(() => {
-    app.unmount()
+    vm.setShow(false).then(() => {
+      app.unmount()
+    })
   }, duration || 3000);
 }
 

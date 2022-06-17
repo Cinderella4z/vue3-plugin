@@ -1,23 +1,26 @@
 <template>
 
-  <div class="MessageBoxField" v-if="state.visible">
+  <transition>
+    <div class="MessageBoxField" v-show="state.visible">
 
-    <div class="MessageBox">
-      <div class="message-box-title">
-        {{ title }}
+      <div class="MessageBox">
+        <div class="message-box-title">
+          {{ title }}
+        </div>
+
+        <div class="message-box-content">{{ content }}</div>
+        <div v-if="props.type === 'prompt'">
+          <input class="message-box-input" v-model="state.promptV">
+        </div>
+
+        <div class="message-box-btn">
+          <button class="btn cancel" @click="cancel">{{ cancelBtnText }}</button>
+          <button class="btn confirm" @click="comfirm">{{ confirmBtnText }}</button>
+        </div>
       </div>
 
-      <div class="message-box-content">{{ content }}</div>
-      <div v-if="props.type === 'prompt'">
-        <input class="message-box-input" v-model="state.promptV">
-      </div>
-
-      <div class="message-box-btn">
-        <button class="btn cancel" @click="cancel">{{ cancelBtnText }}</button>
-        <button class="btn confirm" @click="comfirm">{{ confirmBtnText }}</button>
-      </div>
     </div>
-  </div>
+  </transition>
 
 </template>
 
@@ -25,7 +28,7 @@
 import { ref, reactive } from 'vue'
 
 const state = reactive({
-  visible: true,
+  visible: false,
   status: '',
   promptV: '',
 })
@@ -143,9 +146,6 @@ defineExpose({
   }
 }
 
-
-
-
 .MessageBoxField {
   position: fixed;
   top: 0;
@@ -153,5 +153,18 @@ defineExpose({
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.v-enter-active {
+  transition: all .5s ease-in;
+}
+
+.v-leave-active {
+  transition: all .5s ease-out;
 }
 </style>
